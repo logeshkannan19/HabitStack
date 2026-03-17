@@ -79,9 +79,11 @@ exports.deleteHabit = async (req, res) => {
   }
 };
 
-// @desc    Check-in habit
-// @route   POST /api/habits/:id/checkin
-// @access  Private
+/**
+ * @desc    Check-in habit
+ * @route   POST /api/habits/:id/checkin
+ * @access  Private
+ */
 exports.checkInHabit = async (req, res) => {
   try {
     const habit = await Habit.findById(req.params.id);
@@ -90,7 +92,7 @@ exports.checkInHabit = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Habit not found' });
     }
 
-    // Check if already checked in today
+    // Check if already checked in today (Midnight local time check)
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
 
@@ -100,34 +102,35 @@ exports.checkInHabit = async (req, res) => {
     });
 
     if (checkInExists) {
-      return res.status(400).json({ success: false, message: 'Already checked in today' });
+      return res.status(400).json({ success: false, message: "You've already crushed this habit today! Come back tomorrow." });
     }
 
-    // Create check-in
+    // Create check-in entry
     await CheckIn.create({
       user: req.user.id,
       habit: req.params.id,
       date: new Date(),
     });
 
-    // Update streak logic
+    // Update streak logic (increment and check for longest streak)
     let currentStreak = habit.currentStreak + 1;
-    let longestStreak = habit.longestStreak;
-    if (currentStreak > longestStreak) {
-      longestStreak = currentStreak;
-    }
+    let longestStreak = Math.max(habit.longestStreak, currentStreak);
 
     habit.currentStreak = currentStreak;
     habit.longestStreak = longestStreak;
     habit.lastCompleted = new Date();
     await habit.save();
 
-    // Reward user with points
+    // Reward user with experience points (XP)
     await User.findByIdAndUpdate(req.user.id, {
       $inc: { points: 10 },
     });
 
-    res.status(200).json({ success: true, data: habit });
+    res.status(200).json({ 
+      success: true, 
+      message: 'Habit completed! +10 XP earned.',
+      data: habit 
+    });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
   }
