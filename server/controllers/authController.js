@@ -1,14 +1,22 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-// @desc    Register user
-// @route   POST /api/auth/register
-// @access  Public
+/**
+ * @desc    Register user
+ * @route   POST /api/auth/register
+ * @access  Public
+ */
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Create user
+    // Check if user already exists
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ success: false, message: 'User already exists' });
+    }
+
+    // Create new user (password hashing is handled in the model middleware)
     const user = await User.create({
       name,
       email,
@@ -17,6 +25,7 @@ exports.register = async (req, res) => {
 
     sendTokenResponse(user, 201, res);
   } catch (err) {
+    // Return standard error message or mongoose validation error
     res.status(400).json({ success: false, message: err.message });
   }
 };
