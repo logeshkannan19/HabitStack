@@ -84,21 +84,24 @@ const Dashboard = () => {
           onHabitCreated={fetchData} 
         />
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        {/* Stats Grid - Key Performance Indicators */}
+        <section 
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10"
+          aria-label="Key Performance Indicators"
+        >
           {[
-            { label: 'Total Points', value: '1,250', icon: Zap, color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/10' },
-            { label: 'Longest Streak', value: '14 Days', icon: Trophy, color: 'text-primary-600', bg: 'bg-primary-50 dark:bg-primary-900/10' },
-            { label: 'Completion Rate', value: `${Math.round(stats?.completionRate)}%`, icon: Calendar, color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/10' },
+            { label: 'Total XP', value: stats?.points || '1,250', icon: Zap, color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/10' },
+            { label: 'Longest Streak', value: `${stats?.longestStreak || 0} Days`, icon: Trophy, color: 'text-primary-600', bg: 'bg-primary-50 dark:bg-primary-900/10' },
+            { label: 'Completion rate', value: `${Math.round(stats?.completionRate || 0)}%`, icon: Calendar, color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/10' },
           ].map((stat, i) => (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
               key={stat.label}
-              className="glass p-6 rounded-2xl flex items-center gap-4"
+              className="glass p-6 rounded-2xl flex items-center gap-4 hover:shadow-2xl transition-shadow"
             >
-              <div className={`p-3 rounded-xl ${stat.bg}`}>
+              <div className={`p-3 rounded-xl ${stat.bg}`} aria-hidden="true">
                 <stat.icon className={`w-8 h-8 ${stat.color}`} />
               </div>
               <div>
@@ -107,15 +110,18 @@ const Dashboard = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
+          {/* Main Content Area */}
           <div className="lg:col-span-2 space-y-8">
-            <section>
+            <section aria-labelledby="habits-heading">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold">Your Habits</h2>
-                <button className="text-primary-600 hover:text-primary-700 text-sm font-semibold flex items-center gap-1">
+                <h2 id="habits-heading" className="text-xl font-bold">Your Habits</h2>
+                <button 
+                  className="text-primary-600 hover:text-primary-700 text-sm font-semibold flex items-center gap-1 transition-colors"
+                  aria-label="View all habits"
+                >
                   View all <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -126,11 +132,11 @@ const Dashboard = () => {
               </div>
             </section>
 
-            <section className="glass p-6 rounded-2xl">
-              <h2 className="text-xl font-bold mb-6">Activity Overview</h2>
+            <section className="glass p-6 rounded-2xl" aria-labelledby="activity-heading">
+              <h2 id="activity-heading" className="text-xl font-bold mb-6">Activity Overview</h2>
               <div className="h-64 w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={stats?.chartData}>
+                  <AreaChart data={stats?.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="colorCompletions" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.3}/>
