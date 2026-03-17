@@ -90,7 +90,7 @@ const Dashboard = () => {
           aria-label="Key Performance Indicators"
         >
           {[
-            { label: 'Total XP', value: stats?.points || '1,250', icon: Zap, color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/10' },
+            { label: 'Total XP', value: stats?.points?.toLocaleString() || '0', icon: Zap, color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/10' },
             { label: 'Longest Streak', value: `${stats?.longestStreak || 0} Days`, icon: Trophy, color: 'text-primary-600', bg: 'bg-primary-50 dark:bg-primary-900/10' },
             { label: 'Completion rate', value: `${Math.round(stats?.completionRate || 0)}%`, icon: Calendar, color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/10' },
           ].map((stat, i) => (

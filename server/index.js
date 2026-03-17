@@ -79,12 +79,22 @@ app.get('/api/stats', protect, async (req, res) => {
       })
     );
 
+    // Total points (XP) from user model
+    const points = req.user.points || 0;
+
+    // Calculate overall longest streak across all habits
+    const longestStreak = habits.length > 0 
+      ? Math.max(...habits.map(h => h.longestStreak || 0)) 
+      : 0;
+
     res.status(200).json({
       success: true,
       data: {
         totalHabits,
         completedToday,
         completionRate,
+        points,
+        longestStreak,
         chartData,
       },
     });
