@@ -1,62 +1,90 @@
 # HabitStack – Smart Habit Tracker App
 
+[![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-20-green?style=flat-square&logo=node.js)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Latest-green?style=flat-square&logo=mongodb)](https://mongodb.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
+
+> [!NOTE]
+> **Live Demo:** [habitstack-landing.vercel.app](https://habitstack-landing.vercel.app)
+
 "Stack your habits. Build your future."
 
-HabitStack is a modern, production-ready habit tracking web application designed to help users build consistent habits, track streaks, and visualize progress with a premium SaaS-level experience.
+HabitStack is a modern, production-ready habit tracking web application designed to help users build consistent habits, track streaks, and visualize progress.
 
 ## ✨ Features
 
-- **Authentication System**: Secure signup/login with JWT and bcrypt.
-- **Habit Management**: Easily add, edit, and delete habits with categories and frequencies.
-- **Daily Check-in System**: Mark habits as completed and track your daily progress.
-- **Streak Tracking 🔥**: Visualize your current and longest streaks to stay motivated.
-- **Progress Dashboard 📊**: Beautiful charts (Recharts) and statistics showing your completion rate and activity.
-- **AI Insights ✨**: Smart suggestions based on your behavior (Demo).
-- **Gamification**: Earn points for completing habits and level up.
-- **Premium UI**: Dark mode support, smooth animations (Framer Motion), and fully responsive design.
+| Feature | Description |
+|---------|-------------|
+| 🔐 **Authentication** | Secure signup/login with JWT and bcrypt |
+| ✅ **Habit Management** | Add, edit, delete habits with categories |
+| 🔥 **Streak Tracking** | Visualize current and longest streaks |
+| 📊 **Progress Dashboard** | Beautiful charts with Recharts |
+| ✨ **AI Insights** | Smart suggestions based on behavior |
+| 🎮 **Gamification** | Earn points and level up |
+| 🌙 **Dark Mode** | Premium dark UI with animations |
 
 ## 🛠 Tech Stack
 
-- **Frontend**: React (Vite), Tailwind CSS, Lucide React, Recharts, Framer Motion.
-- **Backend**: Node.js, Express, REST API.
-- **Database**: MongoDB (Mongoose).
-- **Auth**: JWT, bcryptjs.
+| Component | Technology |
+|----------|------------|
+| **Frontend** | React (Vite), Tailwind CSS |
+| **Backend** | Node.js, Express |
+| **Database** | MongoDB (Mongoose) |
+| **Auth** | JWT, bcrypt |
+| **Charts** | Recharts |
+| **Animations** | Framer Motion |
 
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```
-habitstack/
-│── client/ (React frontend)
-│── server/ (Node.js backend)
-│   ├── models/
-│   ├── routes/
-│   ├── controllers/
-│   ├── middleware/
-│   └── utils/
-│── .env
+HabitStack/
+├── client/              # React frontend
+│   └── src/
+│       └── components/  # UI components
+├── server/              # Node.js backend
+│   ├── models/         # Database models
+│   ├── routes/         # API routes
+│   ├── controllers/    # Business logic
+│   ├── middleware/     # Auth middleware
+│   └── utils/         # Utilities
+└── .env
 ```
 
-## 🚀 Setup Instructions
+## 🚀 Quick Start
 
-### Backend Setup
-1. Navigate to `/server`
-2. Run `npm install`
-3. Create a `.env` file based on the provided template:
-   ```env
-   PORT=5001
-   MONGODB_URI=your_mongodb_uri
-   JWT_SECRET=your_jwt_secret
-   ```
-4. Start the server: `npm run dev` (Ensure `nodemon` is installed)
+### Backend
+```bash
+cd server
+npm install
+cp .env.example .env  # Configure MongoDB URI
+npm run dev
+```
 
-### Frontend Setup
-1. Navigate to `/client`
-2. Run `npm install`
-3. Start the dev server: `npm run dev`
+### Frontend
+```bash
+cd client
+npm install
+npm run dev
+```
 
-## 💼 Demo User
+## 💼 Demo Account
+
 - **Email**: demo@habitstack.com
 - **Password**: password123
 
----
-Built with ❤️ for a better future.
+## 🔧 Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `PORT` | Server port (default: 5001) |
+| `MONGODB_URI` | MongoDB connection string |
+| `JWT_SECRET` | JWT token secret |
+
+## 🤝 Contributing
+
+Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) for details.
